@@ -2,11 +2,31 @@
   <div class="formclass">
     <h1>Patient Login</h1>
     <p>For already registerd user</p>
-    <form action="">
-      <input type="email" class="inputclass" placeholder="Email*" />
-      <input type="password" class="inputclass" placeholder="Password*" />
+    <form  (ngSubmit)="loginUser()">
+      <small>{{msg}}</small>
+      <div class="space-evenly">
+        <mat-form-field appearance="outline" class="width-50">
+          <mat-label>Email*</mat-label>
+          <input matInput name="email" placeholder="Ex. pat@example.com" [(ngModel)]="login.email">
+        </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="outline" class="width-50">
+            <mat-label>Password*</mat-label>
+            <input matInput name="password" [type]="hide ? 'password' : 'text'"  [(ngModel)]="login.password" />
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="hide = !hide"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide"
+            >
+              <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+            </button>
+          </mat-form-field> 
+</div>
       <div class="btnclass">
-        <button mat-raised-button color="primary">LogIn</button>
+        <button mat-raised-button type="submit" color="primary">LogIn</button>
         <span> New User? </span> <span>Register</span>
         <button routerLink="/register">here</button>
       </div>

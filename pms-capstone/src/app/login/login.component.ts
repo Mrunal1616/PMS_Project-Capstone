@@ -1,10 +1,39 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Login } from './login.model';
+import { LoginService } from './login.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+
+  login= new Login();
+  msg='';
+
+  constructor(private loginService : LoginService, private router :Router){}
+
+  ngOnInit(): void {
+      
+  }
+
+  loginUser(){
+    this.loginService.loginUserFromRemote(this.login).subscribe(
+      data=> {
+        if(data!=null){
+        console.log("response recieved")
+        this.router.navigate(['/dashboard'])
+        }
+       },
+      error=> {console.log("exception occured")
+      this.msg="Please enter valid email & password";
+      }
+    )
+
+  }
+  
+  hide=true;
 
 }

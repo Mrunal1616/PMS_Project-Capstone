@@ -1,5 +1,10 @@
+import { RegisterService } from './register.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
+import { Input } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { User } from './user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -8,22 +13,25 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit{
 
-  public registerForm !:FormGroup;
-  
-  constructor(private fb : FormBuilder){
+  user: User = new User();
+  constructor(private registerService: RegisterService,
+    private router :Router){}
 
-  }
-  ngOnInit(): void {
-      this.registerForm = this.fb.group({
-        firstName: [''],
-        lastName: [''],
-        email: [''],
-        phoneno: ['']
-      });
-  }
+  ngOnInit(): void { }
 
-  submit(){
-    console.log(this.registerForm.value);
+  saveUser(){
+    this.registerService.addUser(this.user).subscribe(data =>{
+      console.log(data);
+      // this.goToUserList();
+    },
+    error => console.log(error));
   }
-
+  goToUserList(){
+    this.router.navigate(['/patient/register']);
+  }
+  onSubmit(){
+    console.log(this.user);
+    this.saveUser();
+  }
+  hide=true;
 }
