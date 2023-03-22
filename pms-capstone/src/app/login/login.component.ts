@@ -6,34 +6,33 @@ import { LoginService } from './login.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
+  login = new Login();
+  msg = '';
 
-  login= new Login();
-  msg='';
+  constructor(private loginService: LoginService, private router: Router) {}
 
-  constructor(private loginService : LoginService, private router :Router){}
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-      
-  }
-
-  loginUser(){
+  loginUser() {
     this.loginService.loginUserFromRemote(this.login).subscribe(
-      data=> {
-        if(data!=null){
-        console.log("response recieved")
-        this.router.navigate(['/dashboard'])
+      (data) => {
+        if (data != null) {
+          console.log(data.patientId);
+          sessionStorage.setItem('patientid', data.patientId);
+          console.log('response recieved');
+
+          this.router.navigate(['/navbar/' + data.patientId]);
         }
-       },
-      error=> {console.log("exception occured")
-      this.msg="Please enter valid email & password";
+      },
+      (error) => {
+        console.log('exception occured');
+        this.msg = 'Please enter valid email & password';
       }
-    )
-
+    );
   }
-  
-  hide=true;
 
+  hide = true;
 }

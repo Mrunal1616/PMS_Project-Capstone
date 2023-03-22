@@ -6,12 +6,12 @@ import { Injectable } from '@angular/core';
 })
 export class ProfileService {
 
-  private apiServerUrl = "http://localhost:8089/patient/{patientId}";
+  
 
   constructor(private httpClient : HttpClient) { }
 
-  public getPatientbyId(patientId : number){
-    return this.httpClient.get(`http://localhost:8089/patient/{patientId}`);
+  public getPatientbyId(patientId : number) {
+    return this.httpClient.get("http://localhost:8089/patient/"+patientId);
   }
 
   

@@ -1,0 +1,51 @@
+<div *ngFor="let vist of arr"> 
+  <mat-card class="example-card2">
+    <mat-card-header>
+      <mat-card-title-group>
+        <mat-card-title>Observations Made</mat-card-title>
+      </mat-card-title-group>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        <span>{{ perviousAppointmentIdData.physicianEmail }} </span> On
+        {{ perviousAppointmentIdData.date }}
+      </p>
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="tests">
+          <ng-container matColumnDef="testId">
+            <th mat-header-cell *matHeaderCellDef>Id</th>
+            <td mat-cell *matCellDef="let element">{{ element.testId }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="testName">
+            <th mat-header-cell *matHeaderCellDef>Test Conducted</th>
+            <td mat-cell *matCellDef="let element">{{ element.testName }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="result">
+            <th mat-header-cell *matHeaderCellDef>Actual Result</th>
+            <td mat-cell *matCellDef="let element">{{ element.result }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="testNotes">
+            <th mat-header-cell *matHeaderCellDef>Remark</th>
+            <td mat-cell *matCellDef="let element">{{ element.testNotes }}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+        <mat-paginator
+          [pageSizeOptions]="[5, 10, 20]"
+          showFirstLastButtons
+          aria-label="Select page of periodic elements"
+        >
+        </mat-paginator>
+      </div>
+    </mat-card-content>
+    <div class="div3">
+      <span class="bold">Vew Prescription </span
+      ><button mat-raised-button color="primary" (click)="openDialog()">View</button>
+    </div>
+  </mat-card>
+</div>

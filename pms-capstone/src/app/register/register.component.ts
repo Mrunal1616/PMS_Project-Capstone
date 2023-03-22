@@ -5,6 +5,7 @@ import { Input } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { User } from './user.model';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-register',
@@ -15,23 +16,25 @@ export class RegisterComponent implements OnInit{
 
   user: User = new User();
   constructor(private registerService: RegisterService,
-    private router :Router){}
+    private router :Router,
+    // private datePipe:DatePipe
+    ){}
 
   ngOnInit(): void { }
 
   saveUser(){
     this.registerService.addUser(this.user).subscribe(data =>{
       console.log(data);
-      // this.goToUserList();
+      this.router.navigate(['/login']);
     },
     error => console.log(error));
   }
-  goToUserList(){
-    this.router.navigate(['/patient/register']);
-  }
+ 
   onSubmit(){
+    // this.user.dob=this.datePipe.transform(this.user.dob,'dd-MM-yyyy');
     console.log(this.user);
     this.saveUser();
   }
-  hide=true;
+hide=true;
+
 }

@@ -1,5 +1,4 @@
 import { CalenderComponent } from './../calender/calender.component';
-import {ViewprescriptionComponent} from './../viewprescription/viewprescription.component'
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 

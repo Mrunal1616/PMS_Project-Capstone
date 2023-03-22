@@ -13,11 +13,14 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { UpdateProfileComponent } from './update-profile/update-profile.component';
 import { LogoutComponent } from './logout/logout.component';
 import { DeleteComponent } from './delete/delete.component';
-import { ViewprescriptionComponent } from './viewprescription/viewprescription.component';
 import { PatientHistoryComponent } from './patient-history/patient-history.component';
 import { LoginComponent } from './login/login.component';
-import { HealthinfoComponent } from './healthinfo/healthinfo.component';
 import { RegisterComponent } from './register/register.component';
+import { PatientInfoComponent } from './history/patient-info/patient-info.component';
+import { HealthinfoComponent } from './history/healthinfo/healthinfo.component';
+import { PreviousAppointmentComponent } from './history/previous-appointment/previous-appointment.component';
+import { ObservationsComponent } from './history/observations/observations.component';
+import { ViewprescriptionComponent } from './history/viewprescription/viewprescription.component';
 
 
 
@@ -36,7 +39,10 @@ import { RegisterComponent } from './register/register.component';
     PatientHistoryComponent,
     LoginComponent,
     HealthinfoComponent,
-    RegisterComponent
+    RegisterComponent,
+    PatientInfoComponent,
+    PreviousAppointmentComponent,
+    ObservationsComponent
   ],
   entryComponents: [CalenderComponent],
   imports: [

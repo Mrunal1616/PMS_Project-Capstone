@@ -12,10 +12,14 @@ export class LoginService {
 
   private apiServerUrl = "http://localhost:8085/patient/login";
 
+ 
+
   constructor(private httpClient : HttpClient) { }
 
   public loginUserFromRemote(login :Login) : Observable<any>{
     return this.httpClient.post<any>("http://localhost:8085/patient/login", login);
   }
+
+
 
 }
