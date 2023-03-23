@@ -1,0 +1,17 @@
+
+.box{
+    margin-top: 15px;
+    
+    .box-item:hover{
+        color: #0f172a;
+        cursor: pointer;
+        text-decoration: none;
+        
+    }
+}
+.toolbar{
+    flex-direction: row-reverse;
+    background-color: #32a7f1;
+    
+    
+}

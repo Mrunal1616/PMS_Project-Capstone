@@ -1,0 +1,21 @@
+<mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>Welcome </mat-card-title>
+      <mat-card-subtitle></mat-card-subtitle>
+    </mat-card-header>
+  
+    <mat-card-content>
+      <div>
+        <div style="float: left">
+          Name : {{patientbyIdData.title}}. {{patientbyIdData.firstName}} {{patientbyIdData.lastName}} <br/>
+          Email: {{ patientbyIdData.email }}<br />
+          Contact Number: {{patientbyIdData.contactNumber}} <br />
+          Date of Birth: {{patientbyIdData.dob}}<br />
+          Gender : {{patientbyIdData.gender}}<br/>
+          Address: {{patientbyIdData.address}}<br />
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  
