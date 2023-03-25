@@ -17,6 +17,14 @@ export interface TestList {
 export interface VisitId {
   visitId: number;
 }
+export interface AllAppointments {
+  appointmentId: number;
+}
+export interface AppointmentDetails {
+  physicianEmail: string;
+  date: string;
+}
+
 const visitsData: VisitId[] = [];
 const testsData: TestList[] = [];
 
@@ -29,34 +37,56 @@ export class ObservationsComponent {
   constructor(
     private historyService: HistoryService,
     private _liveAnnouncer: LiveAnnouncer,
-    public dialog : MatDialog
+    public dialog: MatDialog
   ) {}
 
-  displayedColumns: string[] = ['testId', 'testName', 'result', 'testNotes'];
+  displayedColumns1: string[] = ['testId', 'testName', 'result', 'testNotes'];
 
   arr: string = JSON.parse(sessionStorage.getItem('data') || '{}');
-  
+  appId: string = JSON.parse(sessionStorage.getItem('app') || '{}');
+
+  // no :number[] = parseInt(this.arr);
 
   ngOnInit() {
     this.getVisitId();
+    console.log("VisitId",this.arr);
+    
     this.getTests();
-    this.getPeviousAppointment();
-    this.getPeviousAppointmentVisitHistory();
-    this.getTests();
-  }
-  ngAfterViewInit(): void {
-    console.log(this.arr);
-    for (let mrunal of this.arr) {
-      console.log(mrunal);
-      // console.log(typeof mrunal);
-    }
+    // this.getAppointmentId();
+    // this.getPeviousAppointment();
+    // this.getPeviousAppointmentVisitHistory();
 
-    this.dataSource = new MatTableDataSource<TestList>(this.tests);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    // this.getAppointment();
+    // console.log("final",this.no);
+  }
+  nums: number[] = [];
+
+  ngAfterViewInit(): void {
+    // console.log(this.arr);
+    // for (let mrunal of this.arr) {
+    //   console.log(mrunal);
+    //   // console.log(typeof mrunal);
+    // }
+    // for (let f of this.arr) {
+    //   this.nums.push(parseInt(this.arr));
+    // }
+    // console.log('EEEEEEEEEEE', this.num);
+
+    // Instead of parseInt(), Number()
+    // can also be used
+
+    // console.log('AAAAAAAAAAAAA', this.try);
+    // console.log('eshuu', this.eshu);
+    // console.log('sanguu', this._appointmentDetails);
+
+    this.dataSource1 = new MatTableDataSource<TestList>(this.tests);
+    this.dataSource1.paginator = this.paginator;
+    this.dataSource1.sort = this.sort;
   }
   private _tests: TestList[];
   private _visits: VisitId[] = [];
+  private _appointments: AllAppointments[] = [];
+
   public get tests(): TestList[] {
     return this._tests;
   }
@@ -69,9 +99,21 @@ export class ObservationsComponent {
   public set visits(value: VisitId[]) {
     this._visits = value;
   }
+  public get appointments(): AllAppointments[] {
+    return this._appointments;
+  }
+  public set appointments(value: AllAppointments[]) {
+    this._appointments = value;
+  }
+  public set appointmentDetails(value: AppointmentDetails[]) {
+    this._appointmentDetails = value;
+  }
+  public get appointmentDetails() {
+    return this._appointmentDetails;
+  }
   isLoading = false;
 
-  dataSource = new MatTableDataSource<TestList>();
+  dataSource1 = new MatTableDataSource<TestList>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   pageSizes = [3, 5, 7];
   @ViewChild(MatSort) sort: MatSort;
@@ -84,7 +126,20 @@ export class ObservationsComponent {
       (reponse: VisitId[]) => {
         this.visits = reponse;
         sessionStorage.setItem('data', JSON.stringify(reponse));
-        console.log(this.visits);
+        console.log("visitId",this.visits);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
+  public getAppointmentId(): void {
+    this.historyService.getAllAppointments(this.num).subscribe(
+      (response: AllAppointments[]) => {
+        this.appointments = response;
+        sessionStorage.setItem('app', JSON.stringify(response));
+        console.log('Mrunal', this.appointments);
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -93,14 +148,17 @@ export class ObservationsComponent {
   }
 
   //mrunal: any;
+  try: any[] = [];
 
   public getTests(): void {
     for (let mrunal of this.arr) {
-      console.log(Number(mrunal))
+      console.log('getTEst', Number(mrunal));
       this.historyService.getAllTests(Number(mrunal)).subscribe(
         (response: TestList[]) => {
           this.tests = response;
-          console.log(this.tests);
+          sessionStorage.setItem('visitid', mrunal);
+          var len = this.try.push(response);
+          // console.log(this.tests);
         },
         (error: HttpErrorResponse) => {
           alert(error.message);
@@ -109,30 +167,35 @@ export class ObservationsComponent {
     }
   }
 
-  perviousAppointmentIdData: any;
-  getPeviousAppointment() {
-    this.historyService
-      .getPeviousAppointment(this.num)
-      .subscribe((response) => {
-        this.perviousAppointmentIdData = response;
-        console.log(response);
-        console.log(this.perviousAppointmentIdData.appointmentId);
-      });
-  }
-  perviousAppointmentVisitHistory: any;
-  getPeviousAppointmentVisitHistory() {
-    console.log(this.perviousAppointmentIdData.appointmentId);
-    this.historyService
-      .getPeviousAppointmentVisitHistory(
-        this.perviousAppointmentIdData.appointmentId
-      )
-      .subscribe((response) => {
-        this.perviousAppointmentVisitHistory = response;
-        console.log(response);
-      });
-  }
+  // perviousAppointmentIdData: any;
+  // getPeviousAppointment() {
+  //   this.historyService
+  //     .getPeviousAppointment(this.num)
+  //     .subscribe((response) => {
+  //       this.perviousAppointmentIdData = response;
+  //       console.log(response);
+  //       console.log(this.perviousAppointmentIdData.appointmentId);
+  //     });
+  // }
+  // perviousAppointmentVisitHistory: any;
+  // getPeviousAppointmentVisitHistory() {
+  //   console.log(this.perviousAppointmentIdData.appointmentId);
+  //   this.historyService
+  //     .getPeviousAppointmentVisitHistory(
+  //       this.perviousAppointmentIdData.appointmentId
+  //     )
+  //     .subscribe((response) => {
+  //       this.perviousAppointmentVisitHistory = response;
+  //       console.log(response);
+  //     });
+  // }
 
-  openDialog(){
+   
+
+  openDialog(ashwin : any) {
+    
+    sessionStorage.setItem('view',ashwin);
+    console.log("ASHWIN",ashwin)
     this.dialog.open(ViewprescriptionComponent);
   }
 
@@ -146,10 +209,28 @@ export class ObservationsComponent {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.dataSource1.filter = filterValue.trim().toLowerCase();
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+    if (this.dataSource1.paginator) {
+      this.dataSource1.paginator.firstPage();
+    }
+  }
+
+  eshu: any[] = [];
+  _appointmentDetails: AppointmentDetails[] = this.eshu;
+
+  public getAppointment(): void {
+    for (let ashwin of this.appId) {
+      this.historyService.getAppointmentDetails(Number(ashwin)).subscribe(
+        (response: AppointmentDetails[]) => {
+          this.appointmentDetails = response;
+          var x = this.eshu.push(response);
+          console.log('Mru', this.eshu);
+        },
+        (error: HttpErrorResponse) => {
+          alert(error.message);
+        }
+      );
     }
   }
 }

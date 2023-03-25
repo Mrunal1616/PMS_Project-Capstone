@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { MatModule } from './appModules/mat.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -51,7 +52,7 @@ import { ViewprescriptionComponent } from './history/viewprescription/viewprescr
     BrowserAnimationsModule,
     MatModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -167,6 +167,7 @@ export class ObservationsComponent {
       );
     }
   }
+  
 
   // perviousAppointmentIdData: any;
   // getPeviousAppointment() {

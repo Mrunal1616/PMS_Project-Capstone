@@ -6,11 +6,9 @@
       </mat-card-title-group>
     </mat-card-header>
     <mat-card-content>
-      <!-- <div *ngFor="let f of arr">
-      <p>
-        <span>{{ _appointmentDetails[0].physicianEmail }}  On  </span>{{ _appointmentDetails[0].date }}
-      </p>
-    </div> -->
+      <!-- <p>
+        <span>{{getAppointmentPatient.drFirstName}} {{element.drLastName}}  On  </span>{{ _appointmentDetails[0].date }}
+      </p> -->
       <div class="mat-elevation-z8">
         <table mat-table [dataSource]="a">
           <ng-container matColumnDef="testId">

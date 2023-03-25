@@ -17,7 +17,7 @@ export class RegisterComponent implements OnInit{
   user: User = new User();
   constructor(private registerService: RegisterService,
     private router :Router,
-    // private datePipe:DatePipe
+    private datePipe:DatePipe,
     ){}
 
   ngOnInit(): void { }
@@ -31,7 +31,7 @@ export class RegisterComponent implements OnInit{
   }
  
   onSubmit(){
-    // this.user.dob=this.datePipe.transform(this.user.dob,'dd-MM-yyyy');
+    this.user.dob=this.datePipe.transform(this.user.dob,'yyyy-MM-dd');
     console.log(this.user);
     this.saveUser();
   }
