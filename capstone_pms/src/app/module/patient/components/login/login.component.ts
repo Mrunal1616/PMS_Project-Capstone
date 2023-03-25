@@ -27,9 +27,14 @@ export class LoginComponent implements OnInit{
       (data) => {
         if (data != null) {
           console.log(data.patientId);
+          sessionStorage.setItem('title', data.title);
           sessionStorage.setItem('patientid', data.patientId);
+          sessionStorage.setItem('firstName', data.firstName);
+          sessionStorage.setItem('lastName', data.lastName);
+
+          
           console.log('response recieved');
-          this.router.navigate(['/patient/default']);
+          this.router.navigate(['/patient/default/dashboard']);
         }
       },
       (error) => {

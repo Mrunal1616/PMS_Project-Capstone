@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CalenderUser } from './components/book-appointment/book-appointment.component';
+import { CalenderUser } from './components/book-appointment/book_appointment.model';
 import { Login } from './components/login/login.component';
-import { TestList, VisitId } from './components/observations/observations.component';
+import { AllAppointments, AppointmentDetails, TestList, VisitId } from './components/observations/observations.component';
 import { AppointmentList } from './components/previous-appointemt/previous-appointemt.component';
 import { User } from './components/register/register.component';
 import { PrescriptionList } from './components/viewprescription/viewprescription.component';
@@ -83,6 +83,20 @@ export class PatientService {
   getAppointmentByPatient(patientId:number):Observable<any>
   {
   return this.httpClient.get(`http://localhost:8081/patient/${patientId}/appointments`)
+  }
+
+  getAllAppointments(patientId: number): Observable<AllAppointments[]> {
+    return this.httpClient.get<AllAppointments[]>(
+      `http://localhost:8081/patient/${patientId}/allappointments`
+    );
+  }
+
+  getAppointmentDetails(
+    appointmentId: number
+  ): Observable<AppointmentDetails[]> {
+    return this.httpClient.get<AppointmentDetails[]>(
+      `http://localhost:8081/appointments/${appointmentId}`
+    );
   }
 
 }
